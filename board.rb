@@ -1,6 +1,9 @@
 require_relative 'piece'
+require_relative 'display'
 
 class Board
+
+  attr_reader :grid
 
   PIECES = {
     KING: [[0,3], [7,3]],
@@ -53,6 +56,16 @@ class Board
     @grid[row][col] = piece
   end
 
+  def in_bounds?(pos)
+    pos.all? { |n| n.between?(0, @grid.length - 1) }
+  end
+
+  def test_cursor
+    display = Display.new(self)
+    display.render
+    display.cursor.get_input
+  end
+
   # def populate_one_player
   #
   # end
@@ -74,6 +87,7 @@ if __FILE__ == $PROGRAM_NAME
   # p board[[2, 0]]
   # p board[[2, 0]].pos == [2,0]
 
-  board.move_piece([2,0], [0,0])
+  # board.move_piece([2,0], [0,0])
+  board.test_cursor
 
 end
