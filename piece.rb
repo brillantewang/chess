@@ -1,11 +1,14 @@
+require_relative "slideable"
 require_relative "stepable"
+require_relative "board"
 
 class Piece
   attr_reader :type
   attr_accessor :pos
 
-  def initialize(pos)
+  def initialize(pos, board)
     @pos = pos
+    @board = board
   end
 
 end
@@ -32,7 +35,14 @@ class Knight < Piece
 
 end
 
+class Rook < Piece
+  include Slideable
 
+  def move_dirs
+    [:left, :right, :up, :down]
+  end
+
+end
 
 class NullPiece < Piece
 
@@ -51,7 +61,7 @@ end
 # end
 
 if __FILE__ == $PROGRAM_NAME
-  king = King.new([0,0])
-  p king.moves
+  rook = Rook.new([4,5], Board.new)
+  p rook.moves
 
 end
