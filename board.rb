@@ -24,8 +24,8 @@ class Board
         case type
         when :KING
           self[pos] = King.new(pos, self)
-        # when :QUEEN
-        #   self[pos] = Queen.new(pos, self)
+        when :QUEEN
+          self[pos] = Queen.new(pos, self)
         when :BISHOP
           self[pos] = Bishop.new(pos, self)
         when :KNIGHT
