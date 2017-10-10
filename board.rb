@@ -62,8 +62,10 @@ class Board
 
   def test_cursor
     display = Display.new(self)
-    display.render
-    display.cursor.get_input
+    while true
+      display.render
+      display.cursor.get_input
+    end
   end
 
   # def populate_one_player
