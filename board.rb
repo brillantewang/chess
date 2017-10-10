@@ -20,7 +20,20 @@ class Board
 
   def populate
     PIECES.each do |type, all_pos|
-      all_pos.each { |pos| self[pos] = Piece.new(type, pos) }
+      all_pos.each do |pos|
+        case type
+        when :KING
+          self[pos] = King.new(pos, self)
+        # when :QUEEN
+        #   self[pos] = Queen.new(pos, self)
+        when :BISHOP
+          self[pos] = Bishop.new(pos, self)
+        when :KNIGHT
+          self[pos] = Knight.new(pos, self)
+        when :ROOK
+          self[pos] = Rook.new(pos, self)
+        end
+      end
     end
     pop_pawns_row(1)
     pop_pawns_row(6)

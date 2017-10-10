@@ -1,9 +1,9 @@
 require_relative "slideable"
 require_relative "stepable"
 require_relative "board"
+require "singleton"
 
 class Piece
-  attr_reader :type
   attr_accessor :pos
 
   def initialize(pos, board)
@@ -53,7 +53,12 @@ class Bishop < Piece
 end
 
 class NullPiece < Piece
+  include Singleton
 
+  def initialize
+    @symbol = ""
+    @color = "none"
+  end
 end
 
 

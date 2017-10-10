@@ -80,10 +80,9 @@ class Cursor
     # debugger
 
     case key
-    when :return || :space
+    when :return, :space
       @cursor_pos
-    when :right
-      # MOVES.key?(key)
+    when :right, :left, :up, :down
       update_pos(MOVES[key])
       nil
     when :ctrl_c
@@ -92,7 +91,7 @@ class Cursor
   end
 
   def update_pos(diff)
-    puts "updating position!"
+    # puts "updating position!"
     shift_x, shift_y = diff
     cur_x, cur_y = @cursor_pos
     new_pos = [cur_x + shift_x, cur_y + shift_y]
