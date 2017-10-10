@@ -37,12 +37,25 @@ class Board
     end
     pop_pawns_row(1)
     pop_pawns_row(6)
+
+    populate_null
+  end
+
+  def populate_null
+    null_piece = NullPiece.instance
+    @grid.each_with_index do |row, row_i|
+      row.each_index do |col_i|
+        pos = [row_i, col_i]
+        self[pos] = null_piece if self[pos].nil?
+      end
+    end
   end
 
   def pop_pawns_row(row)
     @grid[row].each_index do |col|
       pos = [row, col]
-      self[pos] = Piece.new(:PAWN, pos)
+      self[pos] = Pawn.new(pos, self, 'white') if row == 1
+      self[pos] = Pawn.new(pos, self, 'black') if row == 6
     end
   end
 

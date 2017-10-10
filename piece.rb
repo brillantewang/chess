@@ -147,8 +147,8 @@ end
 # end
 
 if __FILE__ == $PROGRAM_NAME
-  rook = Pawn.new([3,2], Board.new)
-  p rook.color
-  p rook.moves
+  # rook = Pawn.new([3,2], Board.new)
+  # p rook.color
+  # p rook.moves
 
 end
