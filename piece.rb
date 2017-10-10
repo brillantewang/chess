@@ -8,15 +8,18 @@ class Piece
   attr_accessor :pos
 
   def initialize(pos, board, color = 'white')
-    @pos = pos
-    @color = color #player 1(top) = white, #player 2(bottom) = black
-    @board = board
+    @pos, @board, @color = #player 1(top) = white, #player 2(bottom) = black
+      pos, board, color
   end
 
 end
 
 class King < Piece
   include Stepable
+
+  def symbol
+    :Ki
+  end
 
   protected
 
@@ -29,6 +32,10 @@ end
 class Knight < Piece
   include Stepable
 
+  def symbol
+    :Kn
+  end
+
   protected
 
   def move_diffs
@@ -40,14 +47,25 @@ end
 class Rook < Piece
   include Slideable
 
+  def symbol
+    :Ro
+  end
+
+  protected
+
   def move_dirs
     [:left, :right, :up, :down]
   end
-
 end
 
 class Bishop < Piece
   include Slideable
+
+  def symbol
+    :Bi
+  end
+
+  protected
 
   def move_dirs
     [:upleft, :upright, :downleft, :downright]
@@ -58,13 +76,22 @@ class NullPiece < Piece
   include Singleton
 
   def initialize
-    @symbol = ""
     @color = "none"
+  end
+
+  def symbol
+    "  "
   end
 end
 
 class Queen < Piece
   include Slideable
+
+  def symbol
+    :Qu
+  end
+
+  protected
 
   def move_dirs
     [:upleft, :upright, :downleft, :downright, :left, :right, :up, :down]
@@ -73,6 +100,10 @@ class Queen < Piece
 end
 
 class Pawn < Piece
+
+  def symbol
+    :Pa
+  end
 
   def moves
     all_moves = []
