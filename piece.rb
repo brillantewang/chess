@@ -44,6 +44,14 @@ class Rook < Piece
 
 end
 
+class Bishop < Piece
+  include Slideable
+
+  def move_dirs
+    [:upleft, :upright, :downleft, :downright]
+  end
+end
+
 class NullPiece < Piece
 
 end
@@ -61,7 +69,7 @@ end
 # end
 
 if __FILE__ == $PROGRAM_NAME
-  rook = Rook.new([4,5], Board.new)
+  rook = Rook.new([4,2], Board.new)
   p rook.moves
 
 end
