@@ -5,12 +5,20 @@ class Board
 
   attr_reader :grid
 
-  PIECES = {
-    KING: [[0,3], [7,3]],
-    QUEEN: [[0,4],[7,4]],
-    BISHOP: [[0,2], [0,5], [7,2], [7,5]],
-    KNIGHT: [[0, 1], [0,6], [7,1], [7,6]],
-    ROOK: [[0,0], [0,7], [7,0], [7,7]]
+  WHITE_PIECES = {
+    KING: [[0,3]],
+    QUEEN: [[0, 4]],
+    BISHOP: [[0, 2], [0, 5]],
+    KNIGHT: [[0, 1], [0, 6]],
+    ROOK: [[0, 0], [0, 7]]
+  }
+
+  BLACK_PIECES = {
+    KING: [[7,3]],
+    QUEEN: [[7,4]],
+    BISHOP: [[7,2], [7,5]],
+    KNIGHT: [[7,1], [7,6]],
+    ROOK: [[7,0], [7,7]]
   }
 
   def initialize
@@ -18,27 +26,32 @@ class Board
     populate
   end
 
+
   def populate
-    PIECES.each do |type, all_pos|
+    populate_color(WHITE_PIECES, "white")
+    populate_color(BLACK_PIECES, "black")
+    pop_pawns_row(1)
+    pop_pawns_row(6)
+    populate_null
+  end
+
+  def populate_color(hash, color)
+    hash.each do |type, all_pos|
       all_pos.each do |pos|
         case type
         when :KING
-          self[pos] = King.new(pos, self)
+          self[pos] = King.new(pos, self, color)
         when :QUEEN
-          self[pos] = Queen.new(pos, self)
+          self[pos] = Queen.new(pos, self, color)
         when :BISHOP
-          self[pos] = Bishop.new(pos, self)
+          self[pos] = Bishop.new(pos, self, color)
         when :KNIGHT
-          self[pos] = Knight.new(pos, self)
+          self[pos] = Knight.new(pos, self, color)
         when :ROOK
-          self[pos] = Rook.new(pos, self)
+          self[pos] = Rook.new(pos, self, color)
         end
       end
     end
-    pop_pawns_row(1)
-    pop_pawns_row(6)
-
-    populate_null
   end
 
   def populate_null

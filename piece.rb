@@ -171,7 +171,7 @@ end
 
 
 if __FILE__ == $PROGRAM_NAME
-  rook = Queen.new([4, 4], Board.new, "black")
+  rook = Queen.new([6, 0], Board.new, "white")
 
   # p rook.color
   p rook.moves
