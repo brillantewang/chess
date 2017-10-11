@@ -18,11 +18,17 @@ class Display
       row.each_index do |piece_j|
         pos = [row_i, piece_j]
         if @cursor.cursor_pos == pos
+<<<<<<< HEAD
           row_str << "[ #{@board[pos].type.to_s[0..1]} ]".colorize(background: :blue)
         elsif @board[pos].nil?
           row_str << "[    ]"
         else
           row_str << "[ #{@board[pos].type.to_s[0..1]} ]"
+=======
+          row_str << "[ #{@board[pos].symbol} ]".colorize(:color => :white, :background => :blue)
+        else
+          row_str << "[ #{@board[pos].symbol} ]"
+>>>>>>> development
         end
       end
       row_str += "\n"

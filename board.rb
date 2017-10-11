@@ -5,12 +5,20 @@ class Board
 
   attr_reader :grid
 
-  PIECES = {
-    KING: [[0,3], [7,3]],
-    QUEEN: [[0,4],[7,4]],
-    BISHOP: [[0,2], [0,5], [7,2], [7,5]],
-    KNIGHT: [[0, 1], [0,6], [7,1], [7,6]],
-    ROOK: [[0,0], [0,7], [7,0], [7,7]]
+  WHITE_PIECES = {
+    KING: [[0,3]],
+    QUEEN: [[0, 4]],
+    BISHOP: [[0, 2], [0, 5]],
+    KNIGHT: [[0, 1], [0, 6]],
+    ROOK: [[0, 0], [0, 7]]
+  }
+
+  BLACK_PIECES = {
+    KING: [[7,3]],
+    QUEEN: [[7,4]],
+    BISHOP: [[7,2], [7,5]],
+    KNIGHT: [[7,1], [7,6]],
+    ROOK: [[7,0], [7,7]]
   }
 
   def initialize
@@ -18,18 +26,49 @@ class Board
     populate
   end
 
+
   def populate
-    PIECES.each do |type, all_pos|
-      all_pos.each { |pos| self[pos] = Piece.new(type, pos) }
-    end
+    populate_color(WHITE_PIECES, "white")
+    populate_color(BLACK_PIECES, "black")
     pop_pawns_row(1)
     pop_pawns_row(6)
+    populate_null
+  end
+
+  def populate_color(hash, color)
+    hash.each do |type, all_pos|
+      all_pos.each do |pos|
+        case type
+        when :KING
+          self[pos] = King.new(pos, self, color)
+        when :QUEEN
+          self[pos] = Queen.new(pos, self, color)
+        when :BISHOP
+          self[pos] = Bishop.new(pos, self, color)
+        when :KNIGHT
+          self[pos] = Knight.new(pos, self, color)
+        when :ROOK
+          self[pos] = Rook.new(pos, self, color)
+        end
+      end
+    end
+  end
+
+  def populate_null
+    null_piece = NullPiece.instance
+    @grid.each_with_index do |row, row_i|
+      row.each_index do |col_i|
+        pos = [row_i, col_i]
+        self[pos] = null_piece if self[pos].nil?
+      end
+    end
   end
 
   def pop_pawns_row(row)
     @grid[row].each_index do |col|
       pos = [row, col]
-      self[pos] = Piece.new(:PAWN, pos)
+      self[pos] = Pawn.new(pos, self, 'white') if row == 1
+      self[pos] = Pawn.new(pos, self, 'black') if row == 6
     end
   end
 
@@ -58,6 +97,10 @@ class Board
 
   def in_bounds?(pos)
     pos.all? { |n| n.between?(0, @grid.length - 1) }
+  end
+
+  def empty?(pos)
+    self[pos].is_a?(NullPiece)
   end
 
   def test_cursor

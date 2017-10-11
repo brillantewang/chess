@@ -83,7 +83,10 @@ class Cursor
     when :return, :space
       @cursor_pos
     when :right, :left, :up, :down
+<<<<<<< HEAD
       # MOVES.key?(key)
+=======
+>>>>>>> development
       update_pos(MOVES[key])
       nil
     when :ctrl_c
@@ -92,6 +95,10 @@ class Cursor
   end
 
   def update_pos(diff)
+<<<<<<< HEAD
+=======
+    # puts "updating position!"
+>>>>>>> development
     shift_x, shift_y = diff
     cur_x, cur_y = @cursor_pos
     new_pos = [cur_x + shift_x, cur_y + shift_y]
