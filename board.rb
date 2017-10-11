@@ -86,6 +86,10 @@ class Board
     pos.all? { |n| n.between?(0, @grid.length - 1) }
   end
 
+  def empty?(pos)
+    self[pos].is_a?(NullPiece)
+  end
+
   def test_cursor
     display = Display.new(self)
     while true

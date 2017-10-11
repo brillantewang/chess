@@ -19,8 +19,6 @@ class Display
         pos = [row_i, piece_j]
         if @cursor.cursor_pos == pos
           row_str << "[ #{@board[pos].symbol} ]".colorize(:color => :white, :background => :blue)
-        # elsif @board[pos].nil?
-        #   row_str << "[    ]"
         else
           row_str << "[ #{@board[pos].symbol} ]"
         end

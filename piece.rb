@@ -12,6 +12,9 @@ class Piece
       pos, board, color
   end
 
+  def same_color?(piece)
+    @color == piece.color
+  end
 end
 
 class King < Piece
@@ -166,6 +169,15 @@ class Pawn < Piece
 
 end
 
+
+if __FILE__ == $PROGRAM_NAME
+  rook = Queen.new([4, 4], Board.new, "black")
+
+  # p rook.color
+  p rook.moves
+
+end
+
 # class Knight < Piece
 #   include "stepable"
 #
@@ -176,10 +188,3 @@ end
 #     super
 #   end
 # end
-
-if __FILE__ == $PROGRAM_NAME
-  # rook = Pawn.new([3,2], Board.new)
-  # p rook.color
-  # p rook.moves
-
-end
