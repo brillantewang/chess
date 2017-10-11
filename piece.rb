@@ -116,7 +116,8 @@ class Pawn < Piece
       if forward_steps == 2
         new_pos1 = [cur_x + 2, cur_y]
         new_pos2 = [cur_x + 1, cur_y]
-        all_moves << new_pos1 << new_pos2
+        all_moves << new_pos1 if @board.in_bounds?(new_pos1)
+        all_moves << new_pos2 if @board.in_bounds?(new_pos2)
       else
         new_pos = [cur_x + 1, cur_y]
         all_moves << new_pos
@@ -125,10 +126,12 @@ class Pawn < Piece
       if forward_steps == 2
         new_pos1 = [cur_x - 2, cur_y]
         new_pos2 = [cur_x - 1, cur_y]
-        all_moves << new_pos1 << new_pos2
+        all_moves << new_pos1 if @board.in_bounds?(new_pos1)
+        all_moves << new_pos2 if @board.in_bounds?(new_pos2)
+
       else
         new_pos = [cur_x - 1, cur_y]
-        all_moves << new_pos
+        all_moves << new_pos if @board.in_bounds?(new_pos)
       end
     end
 
